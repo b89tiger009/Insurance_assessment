@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國泰人壽 - 保險需求評估中心</title>
+    <script>
+        // 【安全防護】嚴格檢查 HTTP 來源網頁 (Referrer) 驗證機制
+        (function() {
+            var allowedReferrer = "https://b89tiger009.github.io/Portal_web_enc/";
+            var currentReferrer = document.referrer;
+            
+            // 如果來源網頁不完全符合允許的網址，則強制中斷載入並直接跳轉回門戶網站
+            if (!currentReferrer || currentReferrer.indexOf(allowedReferrer) !== 0) {
+                alert("錯誤：未授權的存取來源！本網頁僅允許從指定門戶網站開啟。\\n\\nUnauthorized Access.");
+                window.location.href = allowedReferrer;
+                throw new Error("Access Denied: Invalid Referrer Source.");
+            }
+        })();
+    </script>
+    <!-- 引入 Font Awesome 專業圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cathay-green: #00a040;      /* 國泰識別綠 */
+            --cathay-green-dark: #008030; /* 深綠色 */
+            --cathay-light-bg: #f4fbf7;   /* 淺綠底色 */
+            --text-main: #222222;         /* 主要文字 */
+            --text-muted: #666666;        /* 說明文字 */
+            --card-shadow: 0 10px 30px rgba(0, 160, 64, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 160, 64, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--cathay-light-bg) 0%, #e8f5ee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-area {
+            margin-bottom: 20px;
+        }
+
+        /* 國泰經典綠色大樹意象 SVG */
+        .brand-tree {
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 4px 6px rgba(0,160,64,0.15));
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #111111;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        header h1 span {
+            color: var(--cathay-green);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 45px 35px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 160, 64, 0.05);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* 卡片頂部精緻裝飾條 */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background-color: var(--cathay-green);
+            border-radius: 0 0 4px 4px;
+            transition: width 0.3s ease;
+        }
+
+        .card:hover::after {
+            width: 80px;
+        }
+
+        .card-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background-color: #f0faf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--cathay-green);
+            font-size: 2.2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .card:hover .card-icon-wrapper {
+            background-color: var(--cathay-green);
+            color: #ffffff;
+        }
+
+        /* 確保自訂的 SVG 也能享受與 FA Icon 相同的色彩與過渡動畫 */
+        .custom-svg-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            fill: currentColor;
+            transition: fill 0.3s ease;
+        }
+
+        .card-title {
+            color: #111111;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            text-align: justify;
+            text-justify: inter-ideograph;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--cathay-green);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn:hover {
+            background: var(--cathay-green-dark);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn i {
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* 頁尾版權 */
+        footer {
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(0, 160, 64, 0.1);
+            padding-top: 25px;
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 30px 15px;
+            }
+            header h1 {
+                font-size: 1.9rem;
+            }
+            header p {
+                font-size: 0.95rem;
+            }
+            .card {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 頂部區塊 -->
+        <header>
+            <div class="logo-area">
+                <!-- 國泰大樹概念設計 SVG Logo -->
+                <svg class="brand-tree" viewBox="0 0 100 100">
+                    <circle cx="50" cy="40" r="28" fill="#00a040" />
+                    <circle cx="34" cy="50" r="20" fill="#00a040" />
+                    <circle cx="66" cy="50" r="20" fill="#00a040" />
+                    <polygon points="44,55 56,55 58,85 42,85" fill="#5c4033" />
+                    <path d="M 30,55 Q 50,65 70,55" fill="none" stroke="#00a040" stroke-width="4" />
+                </svg>
+            </div>
+            <h1><span>國泰人壽</span> 服務需求評估</h1>
+            <p>讓我們用專業陪伴您的重要時刻。請選擇下方適合您的需求量表，我們將為您量身規劃最妥適的安心守護方案。</p>
+        </header>
+
+        <div class="card-grid">
+            
+            <!-- 卡片 1：新生兒投保 -->
+            <div class="card">
+                <div>
+                    <div class="card-icon-wrapper">
+                        <i class="fa-solid fa-baby-carriage"></i>
+                    </div>
+                    <div class="card-title">新生兒投保分析表</div>
+                    <div class="card-description">
+                        專為新手爸媽量身規劃。為您掌握出生後的黃金投保期，從醫療實支實付、重大傷病到意外防護，全面檢視保障缺口，給心愛寶貝最溫暖、最完善的健康起跑點。
+                    </div>
+                </div>
+                <a href="https://forms.gle/cD9QVha8DRZxa4QX7" target="_blank" class="btn">
+                    進行新生兒評估 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 卡片 2：房貸評估 -->
+            <div class="card">
+                <div>
+                    <div class="card-icon-wrapper">
+                        <i class="fa-solid fa-house-chimney-user"></i>
+                    </div>
+                    <div class="card-title">房貸評估量表</div>
+                    <div class="card-description">
+                        築巢圓夢是幸福的起點，也是責任的延伸。此評估能協助您檢視家庭財務韌性，透過專屬「留愛不留債」計劃防範未知風險，確保家人的避風港無論何時都穩固無虞。
+                    </div>
+                </div>
+                <a href="https://forms.gle/pLZcuVQkN4jN1a5UA" target="_blank" class="btn">
+                    進行房貸評估 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 卡片 3：車險需求 -->
+            <div class="card">
+                <div>
+                    <div class="card-icon-wrapper">
+                        <!-- 使用高度定制的 SVG 設計，徹底解決 Font Awesome Pro 圖示不載入的異常 -->
+                        <svg class="custom-svg-icon" viewBox="0 0 24 24">
+                            <!-- 盾牌背景層（半透明，提供多層次視覺質感） -->
+                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83v-5l6-2.25 6 2.25v5z" opacity="0.35"/>
+                            <!-- 前臉轎車主體圖形 -->
+                            <path d="M18.92 10.01C18.72 9.42 18.16 9 17.5 9h-11c-.66 0-1.21.42-1.42 1.01L4 13v6c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h10v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-6l-1.08-2.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM6.16 11l.83-2.5h10l.83 2.5H6.16z"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">車險需求分析表</div>
+                    <div class="card-description">
+                        馬路狀況瞬息萬變，上路保障不可少。不論是強制險、第三人責任險，還是讓防護更全面的「超額責任險」，幫您依據駕駛習慣與預算配置，打造最安心的隨行防護罩。
+                    </div>
+                </div>
+                <a href="https://forms.gle/NAkJx4VWXbT3rYds9" target="_blank" class="btn">
+                    進行車險評估 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>© 2026 服務諮詢小組 專屬服務網頁</p>
+        </footer>
+    </div>
+
+</body>
+</html>
